@@ -8,28 +8,37 @@ import kotlin.reflect.KClass
 class Blocks {
 
     fun getData(blockA: Array<Any>, blockB: KClass<*>): Any {
-        var blockC: Any
-        blockC = when (blockB) {
-            String::class -> ""
-            Int::class -> 0
-            LocalDate::class -> LocalDate.MIN
-            else -> throw IllegalArgumentException()
-        }
-        for (i in blockA) {
-            if (i is String && blockC is String) {
-                blockC += i
-            } else if (i is Int && blockC is Int) {
-                blockC += i
-            } else if (i is LocalDate && blockC is LocalDate) {
-                if (i > blockC && i <= LocalDate.now() || i < blockC && i > LocalDate.now()) {
-                    blockC = i
+        when (blockB) {
+            String::class -> {
+                var blockC = ""
+                for (element in blockA) {
+                    if (element is String) {
+                        blockC += element
+                    }
                 }
+                return blockC
+            }
+            Int::class -> {
+                var blockC = 0
+                for (element in blockA) {
+                    if (element is Int) {
+                        blockC += element
+                    }
+                }
+                return blockC
+            }
+            LocalDate::class -> {
+                var blockC = LocalDate.MIN
+                for (element in blockA) {
+                    if (element is LocalDate && (element > blockC && element <= LocalDate.now()
+                                || element < blockC && element > LocalDate.now())) {
+                        blockC = element
+                    }
+                }
+                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                return blockC.format(formatter)
             }
         }
-        if (blockC is LocalDate) {
-            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            blockC = blockC.format(formatter)
-        }
-        return blockC
+        return IllegalArgumentException()
     }
 }

@@ -41,6 +41,6 @@ class Pangram {
             }
         }
         numbersAndWords.sortBy { it.first }
-        return numbersAndWords.joinToString(" ") { it -> "${it.first}${it.second}"}
+        return numbersAndWords.joinToString(" ") {"${it.first}${it.second}"}
     }
 }
