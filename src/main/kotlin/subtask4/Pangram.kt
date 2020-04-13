@@ -5,10 +5,13 @@ import java.lang.StringBuilder
 class Pangram {
 
     fun getResult(inputString: String): String {
+        if (inputString.replace("""\s""".toRegex(), "").length == 0) {
+            return ""
+        }
         val vowels = setOf('a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y')
         var tempString = inputString.replace("""[^a-zA-Z]""".toRegex(), "").toLowerCase()
         tempString = tempString.replace("""(.)(?=.*\1)""".toRegex(), "")
-        val words = inputString.split(" ")
+        val words = inputString.trim().split("""\s+""".toRegex())
         val numbersAndWords = ArrayList<Pair<Int, String>>()
         if (tempString.length == 26) {
             for (word in words) {
