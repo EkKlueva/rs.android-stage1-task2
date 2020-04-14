@@ -12,7 +12,7 @@ class DateFormatter {
     fun toTextDay(day: String, month: String, year: String): String {
         val dateInString = "${day},${month},${year}"
         return try {
-            val formatter = DateTimeFormatter.ofPattern("d,M,uuuu").withResolverStyle(ResolverStyle.STRICT);
+            val formatter = DateTimeFormatter.ofPattern("d,M,uuuu").withResolverStyle(ResolverStyle.STRICT)
             val localDate = LocalDate.parse(dateInString, formatter)
             localDate.format(DateTimeFormatter.ofPattern("d MMMM, EEEE").withLocale(Locale("ru")))
         } catch (e: DateTimeException) {

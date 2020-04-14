@@ -16,6 +16,6 @@ class Fibonacci {
                 break
             }
         }
-        return arrayOf(fib1, fib2, isProduct).toIntArray()
+        return intArrayOf(fib1, fib2, isProduct)
     }
 }
